@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlantCare — Plant Disease Detection &amp; Health Monitoring</title>
+    <meta
+      name="description"
+      content="Plant Disease Detection and Health Monitoring SaaS workspace. Upload leaf images for disease classification, track field weather risk, analyze crop metrics, and manage team accounts."
+    />
+    <meta
+      property="og:title"
+      content="PlantCare — Plant Disease Detection &amp; Health Monitoring"
+    />
+    <meta
+      property="og:description"
+      content="Multi-dashboard plant health monitoring, foliar disease classification, live weather risk analytics, and administration console."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+      <aside class="sidebar" id="app-sidebar" aria-label="Workspace Navigation">
+        <div class="sidebar-header">
+          <a href="#overview" class="brand" data-view-link="overview" aria-label="PlantCare Home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+              </svg>
+            </span>
+            <span class="brand-name" data-i18n="brandName">PlantCare</span>
+          </a>
+          <button
+            type="button"
+            class="sidebar-close-btn"
+            id="sidebar-close-btn"
+            aria-label="Close navigation sidebar"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Dashboard Views">
+          <div class="sidebar-group">
+            <p class="sidebar-group-label" data-i18n="navGroupWorkspace">Workspace</p>
+            <button type="button" class="sidebar-link is-active" data-view="overview">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
+              <span data-i18n="navOverview">Overview</span>
+            </button>
+            <button type="button" class="sidebar-link" data-view="detect">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <span data-i18n="navDetect">Detect Disease</span>
+            </button>
+            <button type="button" class="sidebar-link" data-view="weather">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+              </svg>
+              <span data-i18n="navWeather">Live Weather</span>
+            </button>
+            <button type="button" class="sidebar-link" data-view="analytics">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 3v18h18" />
+                <path d="m19 9-5 5-4-4-3 3" />
+              </svg>
+              <span data-i18n="navAnalytics">Analytics</span>
+            </button>
+            <button type="button" class="sidebar-link" data-view="history">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+                <path d="M12 7v5l4 2" />
+              </svg>
+              <span data-i18n="navHistory">Scan History</span>
+            </button>
+          </div>
+
+          <div class="sidebar-group">
+            <p class="sidebar-group-label" data-i18n="navGroupSystem">Operations</p>
+            <button type="button" class="sidebar-link" data-view="admin">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              <span data-i18n="navAdmin">Admin Console</span>
+            </button>
+            <button type="button" class="sidebar-link" data-view="about">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <path d="M12 8h.01" />
+              </svg>
+              <span data-i18n="navAbout">About</span>
+            </button>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="account-summary" id="sidebar-account-summary">
+            <div class="account-avatar" id="sidebar-avatar" aria-hidden="true">G</div>
+            <div class="account-meta">
+              <strong class="account-name" id="sidebar-user-name" data-i18n="guestUserLabel">Guest Workspace</strong>
+              <span class="account-role" id="sidebar-user-role" data-i18n="guestRoleLabel">Sign in to sync scans</span>
+            </div>
+          </div>
+          <div class="sidebar-account-actions">
+            <button type="button" class="btn btn-secondary btn-sm btn-full" id="sidebar-auth-btn" data-i18n="signInRegisterBtn">
+              Sign In / Register
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm btn-full" id="sidebar-logout-btn" data-i18n="signOutBtn" hidden>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="workspace-frame">
+        <header class="topbar" id="top">
+          <div class="topbar-left">
+            <button
+              type="button"
+              class="mobile-menu-btn"
+              id="mobile-menu-toggle"
+              aria-label="Open navigation sidebar"
+              aria-expanded="false"
+              aria-controls="app-sidebar"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="18" x2="20" y2="18" />
+              </svg>
+            </button>
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <span class="breadcrumb-root" data-i18n="brandName">PlantCare</span>
+              <span class="breadcrumb-sep" aria-hidden="true">/</span>
+              <span class="breadcrumb-current" id="topbar-view-title" data-i18n="navOverview">Overview</span>
+            </nav>
+          </div>
+
+          <div class="topbar-actions">
+            <div class="language-control">
+              <label for="language-select" class="sr-only" data-i18n="languageLabel">Select Language</label>
+              <svg class="language-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+              <select id="language-select" class="language-select" aria-label="Select Language">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी (Hindi)</option>
+              </select>
+            </div>
+
+            <button type="button" class="btn btn-secondary btn-sm" id="topbar-account-btn">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span id="topbar-account-label" data-i18n="signInBtn">Sign In</span>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-sm" id="header-scan-btn" data-go-view="detect">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+              <span data-i18n="headerScanBtn">Scan Leaf</span>
+            </button>
+          </div>
+        </header>
+
+        <main class="main-content">
+          <!-- VIEW 1: OVERVIEW DASHBOARD -->
+          <section id="view-overview" class="workspace-view" data-view-panel="overview" aria-labelledby="overview-heading">
+            <div class="view-container">
+              <div class="welcome-header">
+                <div class="welcome-copy">
+                  <p class="section-kicker" data-i18n="heroKicker">Agronomy &amp; Plant Pathology</p>
+                  <h1 id="overview-heading" class="hero-title" data-i18n="heroTitle">
+                    Plant Disease Detection &amp; Leaf Health Monitoring
+                  </h1>
+                  <p class="hero-subtitle" data-i18n="heroSubtitle">
+                    Upload a clear plant leaf photograph to identify foliar conditions, monitor field weather disease risk, and review historical crop metrics.
+                  </p>
+                </div>
+                <div class="welcome-actions">
+                  <button type="button" class="btn btn-primary" data-go-view="detect">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 16v-8" />
+                      <path d="m9 11 3-3 3 3" />
+                      <rect width="18" height="18" x="3" y="3" rx="2" />
+                    </svg>
+                    <span data-i18n="welcomeUploadBtn">Analyze Plant Leaf</span>
+                  </button>
+                  <button type="button" class="btn btn-secondary" id="refresh-dashboard-btn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+                      <path d="M21 3v5h-5" />
+                      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+                      <path d="M8 16H3v5" />
+                    </svg>
+                    <span data-i18n="refreshDataBtn">Refresh Data</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="inline-alert inline-alert-warning" id="stats-error-banner" role="status" hidden>
+                <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <div class="alert-body">
+                  <strong class="alert-title" data-i18n="statsErrorTitle">Unable to load live statistics</strong>
+                  <span class="alert-text" id="stats-error-message">
+                    The backend endpoint (/api/stats) could not be reached.
+                  </span>
+                </div>
+                <button type="button" class="btn btn-ghost btn-sm" id="retry-stats-btn" data-i18n="retryBtn">Retry</button>
+              </div>
+
+              <div class="stats-grid stats-grid-4" aria-label="Plant scan statistics">
+                <article class="stat-card" id="stat-card-total">
+                  <div class="stat-top">
+                    <span class="stat-label" data-i18n="statTotalLabel">Total Scans</span>
+                    <span class="stat-icon stat-icon-neutral" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                        <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                        <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                        <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                        <rect width="10" height="8" x="7" y="8" rx="1" />
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="stat-value-row">
+                    <span class="stat-value tabular-nums" id="stat-total-scans">—</span>
+                  </div>
+                  <p class="stat-caption" id="stat-total-caption">Waiting for backend data</p>
+                </article>
+
+                <article class="stat-card" id="stat-card-healthy">
+                  <div class="stat-top">
+                    <span class="stat-label" data-i18n="statHealthyLabel">Healthy Plants</span>
+                    <span class="stat-icon stat-icon-healthy" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="stat-value-row">
+                    <span class="stat-value stat-value-healthy tabular-nums" id="stat-healthy-plants">—</span>
+                  </div>
+                  <p class="stat-caption" id="stat-healthy-caption">No symptoms detected</p>
+                </article>
+
+                <article class="stat-card" id="stat-card-diseased">
+                  <div class="stat-top">
+                    <span class="stat-label" data-i18n="statDiseasedLabel">Diseased Plants</span>
+                    <span class="stat-icon stat-icon-diseased" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                        <line x1="12" y1="9" x2="12" y2="13" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="stat-value-row">
+                    <span class="stat-value stat-value-diseased tabular-nums" id="stat-diseased-plants">—</span>
+                  </div>
+                  <p class="stat-caption" id="stat-diseased-caption">Requires crop care attention</p>
+                </article>
+
+                <article class="stat-card" id="stat-card-weather">
+                  <div class="stat-top">
+                    <span class="stat-label" data-i18n="statFieldWeatherLabel">Field Conditions</span>
+                    <span class="stat-icon stat-icon-neutral" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="stat-value-row">
+                    <span class="stat-value tabular-nums" id="overview-weather-temp">—</span>
+                  </div>
+                  <p class="stat-caption" id="overview-weather-caption" data-i18n="weatherLoadingShort">Loading field weather...</p>
+                </article>
+              </div>
+
+              <div class="overview-split-grid">
+                <div class="card recent-activity-card">
+                  <div class="card-header">
+                    <div>
+                      <h2 class="card-title" data-i18n="recentTitle">Recent Scan Activity</h2>
+                      <p class="card-subtitle" data-i18n="recentSubtitle">Latest leaf diagnostic evaluations recorded by the server</p>
+                    </div>
+                    <button type="button" class="text-link-btn" data-go-view="history" data-i18n="viewAllHistory">View all history</button>
+                  </div>
+
+                  <div class="recent-skeleton" id="recent-loading" aria-hidden="true">
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                  </div>
+
+                  <div class="empty-state compact" id="recent-empty" hidden>
+                    <div class="empty-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                      </svg>
+                    </div>
+                    <p class="empty-title" data-i18n="recentEmptyTitle">No recent scan activity</p>
+                    <p class="empty-desc" data-i18n="recentEmptyDesc">Upload your first leaf image in the Disease Detection studio to start tracking scans.</p>
+                  </div>
+
+                  <div class="empty-state compact" id="recent-error" hidden>
+                    <p class="empty-title" data-i18n="recentErrorTitle">Could not load recent activity</p>
+                    <p class="empty-desc" id="recent-error-message">Unable to reach /api/history.</p>
+                    <button type="button" class="btn btn-secondary btn-sm" id="retry-recent-btn" data-i18n="retryBtn">Retry</button>
+                  </div>
+
+                  <ul class="recent-list" id="recent-activity-list" hidden></ul>
+                </div>
+
+                <div class="card overview-weather-card">
+                  <div class="card-header">
+                    <div>
+                      <h2 class="card-title" data-i18n="overviewWeatherTitle">Live Weather &amp; Blight Risk</h2>
+                      <p class="card-subtitle" id="overview-weather-location">—</p>
+                    </div>
+                    <button type="button" class="text-link-btn" data-go-view="weather" data-i18n="openWeatherDash">Open Weather Desk</button>
+                  </div>
+
+                  <div id="overview-weather-loading" class="recent-skeleton">
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                  </div>
+
+                  <div id="overview-weather-body" class="overview-weather-body" hidden>
+                    <div class="weather-snapshot-metrics">
+                      <div class="snapshot-metric">
+                        <span class="metric-label" data-i18n="weatherHumidity">Humidity</span>
+                        <strong class="snapshot-val tabular-nums" id="ov-humidity">—</strong>
+                      </div>
+                      <div class="snapshot-metric">
+                        <span class="metric-label" data-i18n="weatherDewPoint">Dew Point</span>
+                        <strong class="snapshot-val tabular-nums" id="ov-dewpoint">—</strong>
+                      </div>
+                      <div class="snapshot-metric">
+                        <span class="metric-label" data-i18n="weatherWind">Wind</span>
+                        <strong class="snapshot-val tabular-nums" id="ov-wind">—</strong>
+                      </div>
+                    </div>
+
+                    <hr class="hairline-divider" />
+
+                    <div class="risk-summary-row">
+                      <span class="metric-label" data-i18n="overallFoliarRisk">Foliar Disease Pressure</span>
+                      <strong id="ov-risk-level" class="risk-text">—</strong>
+                    </div>
+                    <p class="detail-text" id="ov-risk-advisory">—</p>
+
+                    <div class="overview-quick-links">
+                      <button type="button" class="btn btn-secondary btn-sm" data-go-view="analytics" data-i18n="navAnalytics">Analytics</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-go-view="weather" data-i18n="viewForecastBtn">5-Day Forecast</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIEW 2: DISEASE DETECTION LAB -->
+          <section id="view-detect" class="workspace-view" data-view-panel="detect" aria-labelledby="detect-heading" hidden>
+            <div class="view-container">
+              <div class="section-header">
+                <div>
+                  <p class="section-kicker" data-i18n="detectKicker">Foliar Specimen Diagnostics</p>
+                  <h1 id="detect-heading" class="section-title" data-i18n="detectTitle">Disease Detection &amp; Analysis</h1>
+                </div>
+                <p class="section-meta" data-i18n="detectMeta">Supported formats: JPG, JPEG, PNG &middot; Max file size: 10 MB</p>
+              </div>
+
+              <div class="detect-grid">
+                <div class="card upload-card">
+                  <div class="card-header-simple">
+                    <h2 class="panel-title" data-i18n="uploadPanelTitle">1. Upload Plant Leaf Image</h2>
+                    <p class="panel-desc" data-i18n="uploadPanelDesc">Choose a well-lit, focused photo of a single leaf against a clean background.</p>
+                  </div>
+
+                  <div
+                    class="dropzone"
+                    id="dropzone"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Drag and drop a plant leaf image or press Enter to browse files"
+                  >
+                    <input
+                      type="file"
+                      id="leaf-file-input"
+                      class="sr-only"
+                      accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                    />
+                    <div class="dropzone-content">
+                      <span class="dropzone-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="17 8 12 3 7 8" />
+                          <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                      </span>
+                      <p class="dropzone-title" data-i18n="dropzoneTitle">Drag and drop your leaf image here</p>
+                      <p class="dropzone-subtitle" data-i18n="dropzoneSubtitle">or click to browse from your computer</p>
+                      <button type="button" class="btn btn-secondary btn-sm" id="browse-btn" data-i18n="browseBtn">
+                        Browse Image
+                      </button>
+                      <p class="dropzone-hint" data-i18n="dropzoneHint">JPG, JPEG, or PNG &middot; Up to 10 MB</p>
+                      <p class="dropzone-guidelines" data-i18n="dropzoneGuidelines">Single leaf &middot; Natural lighting &middot; Clear focus</p>
+                    </div>
+                  </div>
+
+                  <div class="preview-stage" id="preview-container" hidden>
+                    <div class="preview-image-frame">
+                      <img id="preview-image" src="" alt="Preview of selected plant leaf" />
+                    </div>
+                    <div class="preview-meta" id="preview-meta">
+                      <span id="preview-filename" class="preview-filename">leaf.jpg</span>
+                      <span aria-hidden="true">·</span>
+                      <span id="preview-filesize" class="tabular-nums">0 KB</span>
+                      <span aria-hidden="true">·</span>
+                      <span id="preview-dimensions" class="tabular-nums">—</span>
+                    </div>
+                    <div class="preview-actions">
+                      <button type="button" class="btn btn-primary" id="analyze-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <circle cx="11" cy="11" r="8" />
+                          <path d="m21 21-4.3-4.3" />
+                        </svg>
+                        <span data-i18n="analyzeBtn">Analyze Plant</span>
+                      </button>
+                      <button type="button" class="btn btn-secondary" id="change-image-btn" data-i18n="changeImageBtn">
+                        Change Image
+                      </button>
+                      <button type="button" class="btn btn-ghost" id="clear-image-btn" data-i18n="clearBtn">
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="inline-alert inline-alert-error" id="upload-error" role="alert" hidden>
+                    <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="15" y1="9" x2="9" y2="15" />
+                      <line x1="9" y1="9" x2="15" y2="15" />
+                    </svg>
+                    <div class="alert-body">
+                      <strong class="alert-title" id="upload-error-title">Upload Error</strong>
+                      <span class="alert-text" id="upload-error-message"></span>
+                    </div>
+                  </div>
+
+                  <div class="analysis-loading" id="analysis-loading" role="status" aria-live="polite" hidden>
+                    <div class="spinner" aria-hidden="true"></div>
+                    <p class="loading-title" data-i18n="loadingTitle">Analyzing Leaf Specimen...</p>
+                    <p class="loading-subtitle" data-i18n="loadingSubtitle">Uploading specimen to the server and running disease classification.</p>
+                  </div>
+                </div>
+
+                <div class="card results-card" aria-live="polite">
+                  <div class="card-header-simple">
+                    <h2 class="panel-title" data-i18n="resultsPanelTitle">2. Prediction Results</h2>
+                    <p class="panel-desc" data-i18n="resultsPanelDesc">Diagnostic output returned directly from the classification backend.</p>
+                  </div>
+
+                  <div class="results-empty" id="results-empty">
+                    <div class="results-empty-illustration" aria-hidden="true">
+                      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 40A14 14 0 0 1 19.6 12.2C31 10 34 8.96 38 4c2 4 4 8.36 4 16 0 11-9.56 20-20 20Z" />
+                        <path d="M4 42c0-6 3.7-10.72 10.16-12C19 29.04 24 26 26 24" />
+                      </svg>
+                    </div>
+                    <h3 class="results-empty-title" data-i18n="resultsEmptyTitle">No Prediction Generated Yet</h3>
+                    <p class="results-empty-text" data-i18n="resultsEmptyText">
+                      Select a leaf image on the left and click Analyze Plant to view real diagnostic results from the backend:
+                    </p>
+                    <ul class="results-checklist">
+                      <li data-i18n="checklist1">Identified plant species and disease condition</li>
+                      <li data-i18n="checklist2">Model confidence percentage</li>
+                      <li data-i18n="checklist3">Detailed disease overview and visual symptoms</li>
+                      <li data-i18n="checklist4">Recommended crop management practices</li>
+                    </ul>
+                  </div>
+
+                  <div class="results-content" id="results-content" hidden>
+                    <div class="result-status-bar">
+                      <div class="status-indicator" id="result-status-indicator">
+                        <span class="status-icon" id="result-status-icon" aria-hidden="true"></span>
+                        <span class="status-label" id="result-status-label">Condition Assessed</span>
+                      </div>
+                      <span class="scan-id-label tabular-nums" id="result-scan-id"></span>
+                    </div>
+
+                    <div class="result-summary">
+                      <div class="result-image-box">
+                        <img id="result-plant-image" src="" alt="Analyzed plant leaf" />
+                      </div>
+                      <div class="result-metrics">
+                        <div class="metric-item">
+                          <span class="metric-label" data-i18n="metricPlant">Predicted Plant</span>
+                          <span class="metric-value" id="result-plant-name">—</span>
+                        </div>
+                        <div class="metric-item">
+                          <span class="metric-label" data-i18n="metricDisease">Predicted Disease</span>
+                          <span class="metric-value metric-value-disease" id="result-disease-name">—</span>
+                        </div>
+                        <div class="metric-item">
+                          <div class="confidence-header">
+                            <span class="metric-label" data-i18n="metricConfidence">Confidence</span>
+                            <span class="confidence-number tabular-nums" id="result-confidence">0.0%</span>
+                          </div>
+                          <div class="confidence-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="result-confidence-bar-track">
+                            <div class="confidence-fill" id="result-confidence-bar"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="hairline-divider" />
+
+                    <div class="result-detail-block">
+                      <h3 class="detail-heading" data-i18n="detailDescription">Disease Description</h3>
+                      <p class="detail-text" id="result-description">—</p>
+                    </div>
+
+                    <div class="result-lists-grid">
+                      <div class="result-detail-block">
+                        <h3 class="detail-heading" data-i18n="detailSymptoms">Observed Symptoms</h3>
+                        <ul class="detail-list" id="result-symptoms"></ul>
+                      </div>
+                      <div class="result-detail-block">
+                        <h3 class="detail-heading" data-i18n="detailRecommendations">Management Recommendations</h3>
+                        <ul class="detail-list detail-list-recommendations" id="result-recommendations"></ul>
+                      </div>
+                    </div>
+
+                    <div class="weather-context-note" id="detect-weather-context" hidden>
+                      <strong class="detail-heading" data-i18n="weatherContextHeading">Local Weather Field Context</strong>
+                      <p class="detail-text" id="detect-weather-context-text"></p>
+                    </div>
+
+                    <div class="results-footer">
+                      <button type="button" class="btn btn-primary" id="scan-another-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                          <path d="M3 3v5h5" />
+                        </svg>
+                        <span data-i18n="scanAnotherBtn">Scan Another Plant</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIEW 3: LIVE WEATHER & CROP RISK -->
+          <section id="view-weather" class="workspace-view" data-view-panel="weather" aria-labelledby="weather-heading" hidden>
+            <div class="view-container">
+              <div class="section-header">
+                <div>
+                  <p class="section-kicker" data-i18n="weatherKicker">Microclimate &amp; Pathogen Pressure</p>
+                  <h1 id="weather-heading" class="section-title" data-i18n="weatherTitle">Live Weather &amp; Field Risk Desk</h1>
+                </div>
+
+                <form class="weather-toolbar" id="weather-search-form">
+                  <div class="search-field">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="m21 21-4.3-4.3" />
+                    </svg>
+                    <input
+                      type="search"
+                      id="weather-city-input"
+                      class="search-input"
+                      placeholder="Enter city or district..."
+                      data-i18n-placeholder="weatherSearchPlaceholder"
+                      aria-label="Search weather by city or district"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-sm" id="weather-search-btn" data-i18n="searchBtn">Search</button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="weather-geo-btn" data-i18n="useGpsBtn">Use GPS</button>
+                </form>
+              </div>
+
+              <div class="inline-alert inline-alert-warning" id="weather-error-banner" role="status" hidden>
+                <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <div class="alert-body">
+                  <strong class="alert-title" data-i18n="weatherErrorTitle">Weather Unavailable</strong>
+                  <span class="alert-text" id="weather-error-message"></span>
+                </div>
+              </div>
+
+              <div class="weather-location-bar" id="weather-location-meta">
+                <strong id="weather-loc-name">—</strong>
+                <span aria-hidden="true">·</span>
+                <span id="weather-loc-coords" class="tabular-nums">—</span>
+                <span aria-hidden="true">·</span>
+                <span id="weather-observed-at" class="tabular-nums">—</span>
+              </div>
+
+              <div class="stats-grid stats-grid-4">
+                <article class="stat-card">
+                  <div class="stat-top">
+                    <span class="stat-label" data-i18n="weatherTempLabel">Temperature</span>
+                  </div>
+                  <div class="stat-value-row">
+                    <span class="stat-value tabular-nums" id="w-temp">—</span>
+                  </div>
+                  <p class="stat-caption" id="w-condition">—</p>
+                </article>
+                <article class="stat-card">
+                  <div class="stat-top">
+                    <span class="stat-label" data-i18n="weatherHumidity">Relative Humidity</span>
+                  </div>
+                  <div class="stat-value-row">
+                    <span class="stat-value tabular-nums" id="w-humidity">—</span>
+                  </div>
+                  <p class="stat-caption tabular-nums" id="w-dewpoint">—</p>
+                </article>
+                <article class="stat-card">
+                  <div class="stat-top">
+                    <span class="stat-label" data-i18n="weatherWindRainLabel">Wind &amp; Rain</span>
+                  </div>
+                  <div class="stat-value-row">
+                    <span class="stat-value tabular-nums" id="w-wind">—</span>
+                  </div>
+                  <p class="stat-caption tabular-nums" id="w-precip">—</p>
+                </article>
+                <article class="stat-card">
+                  <div class="stat-top">
+                    <span class="stat-label" data-i18n="weatherSprayWindow">Spray Window</span>
+                  </div>
+                  <div class="stat-value-row">
+                    <span class="stat-value" id="w-spray-window">—</span>
+                  </div>
+                  <p class="stat-caption tabular-nums" id="w-pressure">—</p>
+                </article>
+              </div>
+
+              <div class="analytics-two-col">
+                <article class="card">
+                  <div class="card-header-simple">
+                    <h2 class="card-title" data-i18n="pathogenRiskTitle">Crop Pathogen Susceptibility</h2>
+                    <p class="card-subtitle" data-i18n="pathogenRiskDesc">Calculated from live humidity, dew-point spread, precipitation, and canopy temperature.</p>
+                  </div>
+                  <div id="weather-risk-bars" class="risk-bars-list"></div>
+                </article>
+
+                <article class="card">
+                  <div class="card-header-simple">
+                    <h2 class="card-title" data-i18n="fieldAdvisoryTitle">Agronomic Field Advisories</h2>
+                    <p class="card-subtitle" data-i18n="fieldAdvisoryDesc">Actionable scouting and foliar care notes for current weather.</p>
+                  </div>
+                  <ul id="weather-advisories-list" class="detail-list"></ul>
+                </article>
+              </div>
+
+              <article class="card table-card">
+                <div class="card-header card-header-padded">
+                  <div>
+                    <h2 class="card-title" data-i18n="forecastTitle">5-Day Field Outlook</h2>
+                    <p class="card-subtitle" data-i18n="forecastSubtitle">Daily temperature bounds, rain volume, and wind velocity</p>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="history-table">
+                    <thead>
+                      <tr>
+                        <th scope="col" data-i18n="colDate">Date</th>
+                        <th scope="col" data-i18n="colSkyCondition">Condition</th>
+                        <th scope="col" class="text-right" data-i18n="colTempRange">Low / High</th>
+                        <th scope="col" class="text-right" data-i18n="colRainProb">Rain / Prob.</th>
+                        <th scope="col" class="text-right" data-i18n="colWindMax">Max Wind</th>
+                      </tr>
+                    </thead>
+                    <tbody id="weather-forecast-body"></tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- VIEW 4: ADVANCED ANALYTICS -->
+          <section id="view-analytics" class="workspace-view" data-view-panel="analytics" aria-labelledby="analytics-heading" hidden>
+            <div class="view-container">
+              <div class="section-header">
+                <div>
+                  <p class="section-kicker" data-i18n="analyticsKicker">Epidemiology &amp; Quality Metrics</p>
+                  <h1 id="analytics-heading" class="section-title" data-i18n="analyticsTitle">Advanced Crop Analytics</h1>
+                </div>
+
+                <div class="history-toolbar">
+                  <div class="segmented-control" role="tablist" aria-label="Analytics data scope" id="analytics-scope-control">
+                    <button type="button" class="segmented-btn is-active" data-analytics-scope="all" role="tab" aria-selected="true" data-i18n="scopeAll">All Scans</button>
+                    <button type="button" class="segmented-btn" data-analytics-scope="mine" role="tab" aria-selected="false" data-i18n="scopeMine">My Scans</button>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-sm" id="export-csv-btn" data-i18n="exportCsvBtn">Export CSV</button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="refresh-analytics-btn" data-i18n="refreshBtn">Refresh</button>
+                </div>
+              </div>
+
+              <div class="stats-grid stats-grid-4">
+                <article class="stat-card">
+                  <div class="stat-top"><span class="stat-label" data-i18n="anMeanConfidence">Mean Confidence</span></div>
+                  <div class="stat-value-row"><span class="stat-value tabular-nums" id="an-avg-conf">—</span></div>
+                  <p class="stat-caption" data-i18n="anMeanConfidenceSub">Across recorded diagnoses</p>
+                </article>
+                <article class="stat-card">
+                  <div class="stat-top"><span class="stat-label" data-i18n="anHealthyRatio">Healthy Rate</span></div>
+                  <div class="stat-value-row"><span class="stat-value stat-value-healthy tabular-nums" id="an-healthy-rate">—</span></div>
+                  <p class="stat-caption" id="an-total-sub">—</p>
+                </article>
+                <article class="stat-card">
+                  <div class="stat-top"><span class="stat-label" data-i18n="anDistinctCrops">Crop Species</span></div>
+                  <div class="stat-value-row"><span class="stat-value tabular-nums" id="an-distinct-crops">—</span></div>
+                  <p class="stat-caption" data-i18n="anDistinctCropsSub">Unique plant species evaluated</p>
+                </article>
+                <article class="stat-card">
+                  <div class="stat-top"><span class="stat-label" data-i18n="anFlaggedCases">Flagged for Review</span></div>
+                  <div class="stat-value-row"><span class="stat-value tabular-nums" id="an-flagged-count">—</span></div>
+                  <p class="stat-caption" data-i18n="anFlaggedSub">Marked in moderation queue</p>
+                </article>
+              </div>
+
+              <div id="analytics-empty-state" class="card empty-state" hidden>
+                <h2 class="empty-title" data-i18n="analyticsEmptyTitle">No Scan Data Yet</h2>
+                <p class="empty-desc" data-i18n="analyticsEmptyDesc">Analytics charts populate automatically once leaf diagnostic scans are recorded.</p>
+                <button type="button" class="btn btn-primary btn-sm" data-go-view="detect" data-i18n="uploadFirstLeaf">Upload First Leaf</button>
+              </div>
+
+              <div id="analytics-charts-area">
+                <div class="analytics-two-col">
+                  <article class="card">
+                    <div class="card-header-simple">
+                      <h2 class="card-title" data-i18n="chartHealthTitle">Health vs. Diseased Distribution</h2>
+                      <p class="card-subtitle" data-i18n="chartHealthDesc">Proportion of symptom-free foliage vs. identified conditions</p>
+                    </div>
+                    <div id="chart-health-donut" class="svg-chart-wrap"></div>
+                  </article>
+
+                  <article class="card">
+                    <div class="card-header-simple">
+                      <h2 class="card-title" data-i18n="chartConfidenceTitle">Confidence Score Distribution</h2>
+                      <p class="card-subtitle" data-i18n="chartConfidenceDesc">Grouping of model certainty tiers across recorded scans</p>
+                    </div>
+                    <div id="chart-confidence-bars" class="confidence-dist-list"></div>
+                  </article>
+                </div>
+
+                <article class="card">
+                  <div class="card-header-simple">
+                    <h2 class="card-title" data-i18n="chartTimelineTitle">Daily Scan Volume &amp; Disease Incidence</h2>
+                    <p class="card-subtitle" data-i18n="chartTimelineDesc">Up to 14 most recent active recording dates</p>
+                  </div>
+                  <div id="chart-daily-series" class="svg-chart-wrap"></div>
+                </article>
+
+                <div class="analytics-two-col">
+                  <article class="card table-card">
+                    <div class="card-header card-header-padded">
+                      <div>
+                        <h2 class="card-title" data-i18n="tableCropsTitle">Crop Species Breakdown</h2>
+                        <p class="card-subtitle" data-i18n="tableCropsDesc">Healthy vs. diseased counts by species</p>
+                      </div>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="history-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" data-i18n="colPlantName">Plant Name</th>
+                            <th scope="col" class="text-right" data-i18n="colScans">Scans</th>
+                            <th scope="col" class="text-right" data-i18n="filterHealthy">Healthy</th>
+                            <th scope="col" class="text-right" data-i18n="filterDiseased">Diseased</th>
+                            <th scope="col" class="text-right" data-i18n="colAvgConf">Avg Conf.</th>
+                          </tr>
+                        </thead>
+                        <tbody id="analytics-crops-body"></tbody>
+                      </table>
+                    </div>
+                  </article>
+
+                  <article class="card table-card">
+                    <div class="card-header card-header-padded">
+                      <div>
+                        <h2 class="card-title" data-i18n="tableDiseasesTitle">Top Detected Conditions</h2>
+                        <p class="card-subtitle" data-i18n="tableDiseasesDesc">Most frequent diagnoses recorded in the archive</p>
+                      </div>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="history-table">
+                        <thead>
+                          <tr>
+                            <th scope="col" data-i18n="colCondition">Disease / Condition</th>
+                            <th scope="col" data-i18n="colPlantName">Plant Name</th>
+                            <th scope="col" class="text-right" data-i18n="colCases">Cases</th>
+                            <th scope="col" class="text-right" data-i18n="colAvgConf">Avg Conf.</th>
+                          </tr>
+                        </thead>
+                        <tbody id="analytics-diseases-body"></tbody>
+                      </table>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIEW 5: SCAN HISTORY -->
+          <section id="view-history" class="workspace-view" data-view-panel="history" aria-labelledby="history-heading" hidden>
+            <div class="view-container">
+              <div class="section-header">
+                <div>
+                  <p class="section-kicker" data-i18n="historyKicker">Diagnostic Archive</p>
+                  <h1 id="history-heading" class="section-title" data-i18n="historyTitle">Scan History</h1>
+                </div>
+
+                <div class="history-toolbar">
+                  <div class="search-field">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="m21 21-4.3-4.3" />
+                    </svg>
+                    <input
+                      type="search"
+                      id="history-search"
+                      class="search-input"
+                      placeholder="Search plant or disease..."
+                      data-i18n-placeholder="searchPlaceholder"
+                      aria-label="Search scan history by plant or disease name"
+                    />
+                  </div>
+
+                  <div class="segmented-control" role="tablist" aria-label="Filter scan history by health status">
+                    <button type="button" class="segmented-btn is-active" data-filter="all" role="tab" aria-selected="true" data-i18n="filterAll">All</button>
+                    <button type="button" class="segmented-btn" data-filter="healthy" role="tab" aria-selected="false" data-i18n="filterHealthy">Healthy</button>
+                    <button type="button" class="segmented-btn" data-filter="diseased" role="tab" aria-selected="false" data-i18n="filterDiseased">Diseased</button>
+                  </div>
+
+                  <div class="segmented-control" role="tablist" aria-label="Filter by ownership" id="history-scope-control">
+                    <button type="button" class="segmented-btn is-active" data-history-scope="all" role="tab" aria-selected="true" data-i18n="scopeAll">All</button>
+                    <button type="button" class="segmented-btn" data-history-scope="mine" role="tab" aria-selected="false" data-i18n="scopeMine">My Scans</button>
+                  </div>
+
+                  <button type="button" class="btn btn-secondary btn-sm" id="refresh-history-btn" data-i18n="refreshBtn">
+                    Refresh
+                  </button>
+                </div>
+              </div>
+
+              <div class="card history-card">
+                <div class="history-loading" id="history-loading" aria-hidden="true">
+                  <div class="skeleton-row"></div>
+                  <div class="skeleton-row"></div>
+                  <div class="skeleton-row"></div>
+                  <div class="skeleton-row"></div>
+                </div>
+
+                <div class="empty-state" id="history-empty" hidden>
+                  <div class="empty-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="18" height="18" x="3" y="3" rx="2" />
+                      <path d="M3 9h18" />
+                      <path d="M9 21V9" />
+                    </svg>
+                  </div>
+                  <h2 class="empty-title" id="history-empty-title">No Scan History Available</h2>
+                  <p class="empty-desc" id="history-empty-desc">
+                    Previous leaf diagnoses stored by the backend will appear here once scans are recorded.
+                  </p>
+                  <button type="button" class="btn btn-primary btn-sm" id="history-empty-cta" data-go-view="detect" data-i18n="uploadFirstLeaf">Upload First Leaf</button>
+                </div>
+
+                <div class="empty-state" id="history-error" hidden>
+                  <h2 class="empty-title" data-i18n="historyErrorTitle">Failed to Load Scan History</h2>
+                  <p class="empty-desc" id="history-error-message">
+                    Could not connect to /api/history.
+                  </p>
+                  <button type="button" class="btn btn-secondary btn-sm" id="retry-history-btn" data-i18n="retryConnectionBtn">Retry Connection</button>
+                </div>
+
+                <div class="table-responsive" id="history-table-wrapper" hidden>
+                  <table class="history-table">
+                    <thead>
+                      <tr>
+                        <th scope="col" data-i18n="colLeafImage">Leaf Image</th>
+                        <th scope="col" data-i18n="colPlantName">Plant Name</th>
+                        <th scope="col" data-i18n="colCondition">Disease / Condition</th>
+                        <th scope="col" class="text-right" data-i18n="colConfidence">Confidence</th>
+                        <th scope="col" data-i18n="colRecordedBy">Recorded By</th>
+                        <th scope="col" data-i18n="colDateTime">Date &amp; Time</th>
+                        <th scope="col" class="text-right" data-i18n="colDetails">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody id="history-table-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIEW 6: ADMIN CONSOLE -->
+          <section id="view-admin" class="workspace-view" data-view-panel="admin" aria-labelledby="admin-heading" hidden>
+            <div class="view-container">
+              <div class="section-header">
+                <div>
+                  <p class="section-kicker" data-i18n="adminKicker">Governance &amp; Quality Control</p>
+                  <h1 id="admin-heading" class="section-title" data-i18n="adminTitle">Administration Console</h1>
+                </div>
+                <div class="history-toolbar" id="admin-header-actions" hidden>
+                  <button type="button" class="btn btn-secondary btn-sm" id="admin-refresh-btn" data-i18n="refreshBtn">Refresh</button>
+                </div>
+              </div>
+
+              <!-- Gate shown when not an authenticated admin -->
+              <div class="card admin-gate-card" id="admin-access-gate" hidden>
+                <div class="admin-gate-inner">
+                  <h2 class="card-title" id="admin-gate-title" data-i18n="adminGateTitle">Administrator Authentication Required</h2>
+                  <p class="about-prose" id="admin-gate-desc" data-i18n="adminGateDesc">
+                    Sign in with an administrator account to manage user roles, review flagged plant diagnoses, and inspect audit logs.
+                  </p>
+
+                  <div class="admin-gate-actions" id="admin-gate-guest-actions" hidden>
+                    <button type="button" class="btn btn-primary btn-sm" id="admin-open-login-btn" data-i18n="signInBtn">Sign In</button>
+                    <button type="button" class="btn btn-secondary btn-sm" id="admin-open-register-btn" data-i18n="registerBtn">Create Account</button>
+                  </div>
+
+                  <form class="admin-claim-form" id="admin-claim-form" hidden>
+                    <p class="detail-text" id="admin-claim-help"></p>
+                    <div class="form-row-inline" id="admin-passcode-row" hidden>
+                      <label for="admin-claim-passcode" class="sr-only" data-i18n="adminPasscodeLabel">Administrator Passcode</label>
+                      <input
+                        type="password"
+                        id="admin-claim-passcode"
+                        class="text-input"
+                        placeholder="Enter server ADMIN_PASSCODE..."
+                        data-i18n-placeholder="adminPasscodePlaceholder"
+                      />
+                    </div>
+                    <div class="inline-alert inline-alert-error" id="admin-claim-error" hidden>
+                      <span class="alert-text" id="admin-claim-error-msg"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" id="admin-claim-submit-btn" data-i18n="claimAdminBtn">
+                      Claim Administrator Access
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Authenticated Admin Workspace -->
+              <div id="admin-workspace" hidden>
+                <div class="stats-grid stats-grid-4">
+                  <article class="stat-card">
+                    <div class="stat-top"><span class="stat-label" data-i18n="admTotalUsers">Registered Accounts</span></div>
+                    <div class="stat-value-row"><span class="stat-value tabular-nums" id="adm-total-users">—</span></div>
+                    <p class="stat-caption tabular-nums" id="adm-active-users-sub">—</p>
+                  </article>
+                  <article class="stat-card">
+                    <div class="stat-top"><span class="stat-label" data-i18n="admSystemScans">Total Scans</span></div>
+                    <div class="stat-value-row"><span class="stat-value tabular-nums" id="adm-total-scans">—</span></div>
+                    <p class="stat-caption tabular-nums" id="adm-disease-rate-sub">—</p>
+                  </article>
+                  <article class="stat-card">
+                    <div class="stat-top"><span class="stat-label" data-i18n="admFlaggedQueue">Flagged Reviews</span></div>
+                    <div class="stat-value-row"><span class="stat-value stat-value-diseased tabular-nums" id="adm-flagged-scans">—</span></div>
+                    <p class="stat-caption" data-i18n="admFlaggedSub">Pending agronomy review</p>
+                  </article>
+                  <article class="stat-card">
+                    <div class="stat-top"><span class="stat-label" data-i18n="admAuditEvents">Audit Events</span></div>
+                    <div class="stat-value-row"><span class="stat-value tabular-nums" id="adm-audit-count">—</span></div>
+                    <p class="stat-caption" data-i18n="admAuditSub">Recorded security &amp; scan logs</p>
+                  </article>
+                </div>
+
+                <div class="admin-tabs-bar">
+                  <div class="segmented-control" role="tablist" aria-label="Admin console tabs">
+                    <button type="button" class="segmented-btn is-active" data-admin-tab="users" role="tab" aria-selected="true" data-i18n="admTabUsers">Users &amp; Roles</button>
+                    <button type="button" class="segmented-btn" data-admin-tab="scans" role="tab" aria-selected="false" data-i18n="admTabScans">Scan Moderation</button>
+                    <button type="button" class="segmented-btn" data-admin-tab="audit" role="tab" aria-selected="false" data-i18n="admTabAudit">Audit Log</button>
+                  </div>
+                </div>
+
+                <!-- Tab 1: Users & Roles -->
+                <article class="card table-card" id="admin-tab-users">
+                  <div class="card-header card-header-padded">
+                    <div>
+                      <h2 class="card-title" data-i18n="admUsersTitle">User Directory &amp; Role Management</h2>
+                      <p class="card-subtitle" data-i18n="admUsersDesc">Assign user, agronomist, or administrator privileges and manage account access.</p>
+                    </div>
+                    <div class="search-field">
+                      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.3-4.3" />
+                      </svg>
+                      <input type="search" id="admin-user-search" class="search-input" placeholder="Search name or email..." data-i18n-placeholder="admUserSearchPlaceholder" />
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="history-table">
+                      <thead>
+                        <tr>
+                          <th scope="col" data-i18n="colUser">User</th>
+                          <th scope="col" data-i18n="colLocation">Location</th>
+                          <th scope="col" class="text-right" data-i18n="colScans">Scans</th>
+                          <th scope="col" data-i18n="colRole">Role</th>
+                          <th scope="col" data-i18n="colStatus">Status</th>
+                          <th scope="col" data-i18n="colLastLogin">Last Sign-In</th>
+                          <th scope="col" class="text-right" data-i18n="colActions">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-users-body"></tbody>
+                    </table>
+                  </div>
+                </article>
+
+                <!-- Tab 2: Scan Moderation -->
+                <article class="card table-card" id="admin-tab-scans" hidden>
+                  <div class="card-header card-header-padded">
+                    <div>
+                      <h2 class="card-title" data-i18n="admScansTitle">Global Scan Moderation Queue</h2>
+                      <p class="card-subtitle" data-i18n="admScansDesc">Flag uncertain diagnoses, attach agronomy notes, or remove invalid submissions.</p>
+                    </div>
+                    <div class="segmented-control" role="tablist">
+                      <button type="button" class="segmented-btn is-active" data-admin-scan-filter="all" data-i18n="filterAll">All</button>
+                      <button type="button" class="segmented-btn" data-admin-scan-filter="flagged" data-i18n="filterFlagged">Flagged</button>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="history-table">
+                      <thead>
+                        <tr>
+                          <th scope="col" data-i18n="colLeafImage">Image</th>
+                          <th scope="col" data-i18n="colPlantCondition">Plant &amp; Condition</th>
+                          <th scope="col" data-i18n="colSubmitter">Submitted By</th>
+                          <th scope="col" class="text-right" data-i18n="colConfidence">Conf.</th>
+                          <th scope="col" data-i18n="colReviewNote">Agronomy Note</th>
+                          <th scope="col" class="text-right" data-i18n="colActions">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-scans-body"></tbody>
+                    </table>
+                  </div>
+                </article>
+
+                <!-- Tab 3: Audit Log -->
+                <article class="card table-card" id="admin-tab-audit" hidden>
+                  <div class="card-header card-header-padded">
+                    <div>
+                      <h2 class="card-title" data-i18n="admAuditTitle">Security &amp; Operations Audit Trail</h2>
+                      <p class="card-subtitle" data-i18n="admAuditDesc">Chronological ledger of account registrations, authentication events, role updates, and record actions.</p>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="history-table">
+                      <thead>
+                        <tr>
+                          <th scope="col" data-i18n="colDateTime">Date &amp; Time</th>
+                          <th scope="col" data-i18n="colEvent">Event</th>
+                          <th scope="col" data-i18n="colActor">Actor</th>
+                          <th scope="col" data-i18n="colTarget">Target</th>
+                          <th scope="col" data-i18n="colDetails">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-audit-body"></tbody>
+                    </table>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIEW 7: ABOUT (NO TECHNOLOGY STACK SECTION) -->
+          <section id="view-about" class="workspace-view" data-view-panel="about" aria-labelledby="about-heading" hidden>
+            <div class="view-container">
+              <div class="section-header">
+                <div>
+                  <p class="section-kicker" data-i18n="aboutKicker">System Purpose &amp; Workflow</p>
+                  <h1 id="about-heading" class="section-title" data-i18n="aboutTitle">About PlantCare</h1>
+                </div>
+              </div>
+
+              <div class="about-grid">
+                <article class="card about-objective-card">
+                  <h2 class="panel-title" data-i18n="objectiveTitle">Project Objective</h2>
+                  <p class="about-prose" data-i18n="objectiveP1">
+                    Plant diseases pose a major threat to agricultural productivity and food security. Late identification often leads to widespread crop loss or excessive pesticide application.
+                  </p>
+                  <p class="about-prose" data-i18n="objectiveP2">
+                    PlantCare is a plant disease detection and leaf health monitoring platform designed to help growers, agronomists, and students identify foliar conditions early from standard leaf photographs, monitor field weather risk, and apply structured crop care guidance.
+                  </p>
+                </article>
+
+                <article class="card about-workflow-card">
+                  <h2 class="panel-title" data-i18n="workflowTitle">How PlantCare Works</h2>
+                  <ol class="workflow-steps">
+                    <li class="workflow-step">
+                      <span class="step-index tabular-nums">01</span>
+                      <div>
+                        <h3 class="step-title" data-i18n="step1Title">Image Acquisition &amp; Validation</h3>
+                        <p class="step-desc" data-i18n="step1Desc">Upload a JPG, JPEG, or PNG leaf image via drag-and-drop or file selection with format, dimension, and size verification.</p>
+                      </div>
+                    </li>
+                    <li class="workflow-step">
+                      <span class="step-index tabular-nums">02</span>
+                      <div>
+                        <h3 class="step-title" data-i18n="step2Title">Foliar Disease Classification</h3>
+                        <p class="step-desc" data-i18n="step2Desc">The server preprocesses the leaf photograph and evaluates it through a trained vision classification pipeline to identify crop species and foliar disease.</p>
+                      </div>
+                    </li>
+                    <li class="workflow-step">
+                      <span class="step-index tabular-nums">03</span>
+                      <div>
+                        <h3 class="step-title" data-i18n="step3Title">Weather Risk &amp; Longitudinal Tracking</h3>
+                        <p class="step-desc" data-i18n="step3Desc">Diagnostic results, confidence scores, live humidity blight risk, and management recommendations are archived across multi-view dashboards.</p>
+                      </div>
+                    </li>
+                  </ol>
+                </article>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <footer class="site-footer">
+          <div class="footer-inner">
+            <p class="footer-copy" data-i18n="footerCopy">
+              PlantCare &middot; Plant Disease Detection and Health Monitoring System
+            </p>
+            <div class="footer-links">
+              <button type="button" class="footer-link-btn" data-go-view="overview" data-i18n="navOverview">Overview</button>
+              <button type="button" class="footer-link-btn" data-go-view="detect" data-i18n="navDetect">Detect Disease</button>
+              <button type="button" class="footer-link-btn" data-go-view="weather" data-i18n="navWeather">Live Weather</button>
+              <button type="button" class="footer-link-btn" data-go-view="analytics" data-i18n="navAnalytics">Analytics</button>
+              <button type="button" class="footer-link-btn" data-go-view="about" data-i18n="navAbout">About</button>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Scan Detail Modal -->
+    <div class="modal-backdrop" id="scan-modal-backdrop" hidden>
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-header">
+          <h3 id="modal-title" class="panel-title" data-i18n="modalTitle">Scan Record Details</h3>
+          <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close scan details">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" id="modal-dismiss-btn" data-i18n="modalCloseBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auth & Account Modal -->
+    <div class="modal-backdrop" id="auth-modal-backdrop" hidden>
+      <div class="modal-dialog modal-dialog-auth" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+        <div class="modal-header">
+          <h3 id="auth-modal-title" class="panel-title" data-i18n="authModalTitle">Account Workspace</h3>
+          <button type="button" class="modal-close-btn" id="auth-modal-close-btn" aria-label="Close account dialog">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Guest Tabs -->
+          <div id="auth-guest-panel">
+            <div class="segmented-control auth-tabs" role="tablist">
+              <button type="button" class="segmented-btn is-active" data-auth-tab="login" role="tab" aria-selected="true" data-i18n="signInBtn">Sign In</button>
+              <button type="button" class="segmented-btn" data-auth-tab="register" role="tab" aria-selected="false" data-i18n="registerBtn">Create Account</button>
+            </div>
+
+            <div class="inline-alert inline-alert-error auth-alert" id="auth-error-banner" hidden>
+              <span class="alert-text" id="auth-error-message"></span>
+            </div>
+
+            <form id="login-form" class="auth-form">
+              <div class="form-field">
+                <label for="login-email" data-i18n="emailLabel">Email Address</label>
+                <input type="email" id="login-email" class="text-input" required autocomplete="email" />
+              </div>
+              <div class="form-field">
+                <label for="login-password" data-i18n="passwordLabel">Password</label>
+                <input type="password" id="login-password" class="text-input" required autocomplete="current-password" />
+              </div>
+              <button type="submit" class="btn btn-primary btn-full" id="login-submit-btn" data-i18n="signInBtn">Sign In</button>
+            </form>
+
+            <form id="register-form" class="auth-form" hidden>
+              <div class="form-field">
+                <label for="reg-name" data-i18n="fullNameLabel">Full Name</label>
+                <input type="text" id="reg-name" class="text-input" required minlength="2" maxlength="80" autocomplete="name" />
+              </div>
+              <div class="form-field">
+                <label for="reg-email" data-i18n="emailLabel">Email Address</label>
+                <input type="email" id="reg-email" class="text-input" required autocomplete="email" />
+              </div>
+              <div class="form-field">
+                <label for="reg-location" data-i18n="farmLocationLabel">Farm / District Location (Optional)</label>
+                <input type="text" id="reg-location" class="text-input" maxlength="80" placeholder="e.g., Nashik, India" />
+              </div>
+              <div class="form-field">
+                <label for="reg-password" data-i18n="passwordMinLabel">Password (min 8 characters)</label>
+                <input type="password" id="reg-password" class="text-input" required minlength="8" autocomplete="new-password" />
+              </div>
+              <button type="submit" class="btn btn-primary btn-full" id="register-submit-btn" data-i18n="registerBtn">Create Account</button>
+            </form>
+          </div>
+
+          <!-- Signed-In Profile Panel -->
+          <div id="auth-profile-panel" hidden>
+            <div class="profile-summary-block">
+              <div>
+                <strong id="profile-summary-name">—</strong>
+                <div class="profile-summary-meta">
+                  <span id="profile-summary-email">—</span>
+                  <span aria-hidden="true">·</span>
+                  <span id="profile-summary-role">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="inline-alert inline-alert-error auth-alert" id="profile-error-banner" hidden>
+              <span class="alert-text" id="profile-error-message"></span>
+            </div>
+
+            <form id="profile-form" class="auth-form">
+              <div class="form-field">
+                <label for="profile-name-input" data-i18n="fullNameLabel">Full Name</label>
+                <input type="text" id="profile-name-input" class="text-input" required minlength="2" maxlength="80" />
+              </div>
+              <div class="form-field">
+                <label for="profile-location-input" data-i18n="farmLocationLabel">Farm / District Location (Optional)</label>
+                <input type="text" id="profile-location-input" class="text-input" maxlength="80" />
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm" id="profile-save-btn" data-i18n="saveProfileBtn">Save Profile</button>
+            </form>
+
+            <hr class="hairline-divider" />
+
+            <div class="profile-footer-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="profile-open-admin-btn" data-i18n="navAdmin">Admin Console</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="profile-logout-btn" data-i18n="signOutBtn">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script defer src="/static/js/app.js"></script>
+  </body>
+</html>

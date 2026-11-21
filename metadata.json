@@ -1,0 +1,6 @@
+{
+  "name": "PlantCare AI",
+  "description": "AI-Based Plant Disease Detection and Health Monitoring System frontend for Flask.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
