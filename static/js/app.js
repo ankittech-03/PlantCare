@@ -2114,9 +2114,11 @@
     if (canClaimFirstRun || hasPasscode) {
       el.adminClaimForm.hidden = false;
       el.adminPasscodeRow.hidden = !hasPasscode;
+      el.adminClaimPasscode.required = hasPasscode;
       el.adminClaimHelp.textContent = hasPasscode ? t("adminPasscodeHelp") : t("adminFirstRunHelp");
     } else {
       el.adminClaimForm.hidden = true;
+      el.adminClaimPasscode.required = false;
       el.adminGateDesc.textContent = `${t("adminLockedHelp")} (${user.email})`;
     }
   }
@@ -2124,11 +2126,13 @@
   async function handleClaimAdmin(event) {
     event.preventDefault();
     el.adminClaimError.hidden = true;
+    const submitBtn = document.getElementById("admin-claim-submit-btn");
+    if (submitBtn) submitBtn.disabled = true;
     try {
       const resp = await fetch(API_ENDPOINTS.AUTH_CLAIM_ADMIN, {
         method: "POST",
         headers: authHeaders({ "Content-Type": "application/json" }),
-        body: JSON.stringify({ passcode: el.adminClaimPasscode.value }),
+        body: JSON.stringify({ passcode: el.adminClaimPasscode.value.trim() }),
       });
       const { data } = await parseApiResponse(resp);
       if (!resp.ok || !data || !data.success) {
@@ -2144,6 +2148,8 @@
     } catch {
       el.adminClaimErrorMsg.textContent = "Unable to connect to server.";
       el.adminClaimError.hidden = false;
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
     }
   }
 

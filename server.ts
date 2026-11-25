@@ -944,7 +944,7 @@ async function startServer() {
   app.post("/api/auth/claim-admin", requireAuth, (req: AuthenticatedRequest, res: Response) => {
     const users = readUsers();
     const configuredPasscode = (process.env.ADMIN_PASSCODE || "").trim();
-    const providedPasscode = String(req.body?.passcode || "");
+    const providedPasscode = String(req.body?.passcode || "").trim();
     const activeAdmins = users.filter((u) => u.role === "admin" && u.status === "active");
 
     if (configuredPasscode) {

@@ -591,7 +591,7 @@ def auth_update_profile():
 def auth_claim_admin():
     payload = request.get_json(silent=True) or {}
     configured_passcode = os.environ.get("ADMIN_PASSCODE", "").strip()
-    provided_passcode = str(payload.get("passcode", ""))
+    provided_passcode = str(payload.get("passcode", "")).strip()
 
     with get_db_connection() as conn:
         admin_count = conn.execute(
